@@ -40,6 +40,13 @@ Route::group(['middleware' => ['web']], function () {
     // Autologin
     Route::get('autologin/{token}', ['as' => 'autologin', 'uses' => '\Watson\Autologin\AutologinController@autologin']);
 
+
+    // Filter system
+    Route::get('filter/all', 'FilterController@all');
+    Route::get('filter/my', 'FilterController@my');
+    Route::get('filter/{group}', 'FilterController@group');
+
+
     /*
     Homepage
     ========
@@ -227,8 +234,6 @@ Route::group(['middleware' => ['web']], function () {
         // Maps
         Route::get('map', 'MapController@map')->name('.map');
         Route::get('map/embed', 'MapController@embed')->name('.map.embed');
-
-
     });
 
     // Users
@@ -279,6 +284,4 @@ Route::group(['middleware' => ['web']], function () {
         Route::resource('admin/user', 'Admin\UserController');
         Route::get('admin/insights', 'InsightsController@forAllGroups');
     });
-
-
 });

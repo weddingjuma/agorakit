@@ -28,8 +28,7 @@ class SettingsController extends Controller
     */
     public function update(Request $request)
     {
-        if (Auth::user()->isAdmin())
-        {
+        if (Auth::user()->isAdmin()) {
             \App\Setting::set('homepage_presentation', $request->get('homepage_presentation'));
             \App\Setting::set('homepage_presentation_for_members', $request->get('homepage_presentation_for_members'));
             \App\Setting::set('help_text', $request->get('help_text'));
@@ -38,9 +37,7 @@ class SettingsController extends Controller
 
             flash('Settings saved')->success();
             return view('admin.settings.index');
-        }
-        else
-        {
+        } else {
             flash(trans('messages.not_allowed'))->error();
             return redirect()->action('DashboardController@index');
         }

@@ -15,7 +15,7 @@ class DiscussionController extends Controller
     {
         $this->middleware('member', ['only' => ['edit', 'update', 'destroy']]);
         $this->middleware('verified', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
-        $this->middleware('public', ['only' => ['index', 'show', 'history']]);
+        //$this->middleware('public', ['only' => ['index', 'show', 'history']]);
     }
 
     /**
@@ -23,14 +23,11 @@ class DiscussionController extends Controller
     *
     * @return Response
     */
-    public function index(Request $request, Group $group)
+    public function index(Request $request, Group $group = null)
     {
-        if (\Auth::check())
-        {
+        if (\Auth::check()) {
             $discussions = $group->discussions()->has('user')->with('userReadDiscussion', 'user')->orderBy('updated_at', 'desc')->paginate(50);
-        }
-        else
-        { // don't load the unread relation, since we don't know who to look for.
+        } else { // don't load the unread relation, since we don't know who to look for.
             $discussions = $group->discussions()->has('user')->with('user')->orderBy('updated_at', 'desc')->paginate(50);
         }
 
@@ -61,8 +58,7 @@ class DiscussionController extends Controller
     public function store(Request $request, Group $group)
     {
         // if no group is in the route, it means user choose the group using the dropdown
-        if (!$group->exists)
-        {
+        if (!$group->exists) {
             $group = \App\Group::findOrFail($request->get('group'));
         }
 
@@ -83,8 +79,7 @@ class DiscussionController extends Controller
             ->withInput();
         }
 
-        if ($request->get('tags'))
-        {
+        if ($request->get('tags')) {
             $discussion->tag($request->get('tags'));
         }
 
@@ -153,8 +148,7 @@ class DiscussionController extends Controller
         //$discussion->user()->associate(Auth::user()); // we use revisionable to manage who changed what, so we keep the original author
         $discussion->save();
 
-        if ($request->get('tags'))
-        {
+        if ($request->get('tags')) {
             $discussion->retag($request->get('tags'));
         }
 
