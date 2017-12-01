@@ -1,11 +1,8 @@
 <?php
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-
 
 class UserTest extends Tests\BrowserKitTestCase
 {
-
     /******************* Why is it done this way ? ***************/
 
     /*
@@ -39,10 +36,10 @@ class UserTest extends Tests\BrowserKitTestCase
     }
 
     /**
-    * A basic test example.
-    *
-    * @return void
-    */
+     * A basic test example.
+     *
+     * @return void
+     */
     public function testUserRegistration()
     {
         Mail::fake();
@@ -158,7 +155,6 @@ class UserTest extends Tests\BrowserKitTestCase
 
         $user = App\User::where('email', 'newbie@example.com')->first();
 
-
         $this->actingAs($user)
         ->visit('/groups/'.$group->id.'/join')
         ->see(trans('messages.not_allowed'));
@@ -198,20 +194,18 @@ class UserTest extends Tests\BrowserKitTestCase
         $this->assertTrue($user->isAdminOf($group));
     }
 
-
     /* now let's test emails */
 
     public function testNotificationReceived()
     {
-
         $group = App\Group::where('name', 'Test group')->firstOrFail();
         $user = App\User::where('email', 'newbie@example.com')->firstOrFail();
         $roberto = App\User::where('email', 'roberto@example.com')->firstOrFail();
 
         // let's first create a discussion in test group that newbie has not read yet, and a long time ago
-        $discussion = new \App\Discussion;
+        $discussion = new \App\Discussion();
         $discussion->name = 'Notify me of this interesting discussion';
-        $discussion->body ='Such an interesting discussion blablbla';
+        $discussion->body = 'Such an interesting discussion blablbla';
         $discussion->user_id = $roberto->id;
         $discussion->group_id = $group->id;
         $discussion->created_at = '2001-01-01';
@@ -219,12 +213,10 @@ class UserTest extends Tests\BrowserKitTestCase
 
         $group->discussions()->save($discussion);
 
-
         // fake newbie's membership in order to be in the situation of newbie must be notified
         $membership = App\Membership::where('user_id', $user->id)->where('group_id', $group->id)->firstOrFail();
         $membership->notified_at = '2001-01-01';
         $membership->save();
-
 
         // fake our mail sending
         Mail::fake();
@@ -237,5 +229,4 @@ class UserTest extends Tests\BrowserKitTestCase
             return $mail->hasTo($user->email);
         });
     }
-
 }

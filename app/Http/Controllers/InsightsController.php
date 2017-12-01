@@ -8,13 +8,11 @@ use Charts;
 
 class InsightsController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('member', ['only' => ['forGroup']]);
         $this->middleware('admin', ['only' => ['forAllGroup']]);
     }
-
 
     public function forGroup(Group $group)
     {
@@ -56,7 +54,6 @@ class InsightsController extends Controller
         ->labels(['Files'])
         ->values([$group->files()->sum('filesize')])
         ->dimensions(0, 400);
-
 
         return view('groups.insights')
         ->with('charts', $charts)

@@ -17,7 +17,7 @@ class MembershipController extends Controller
     }
 
     /**
-     * Show a form to allow a user to join a group
+     * Show a form to allow a user to join a group.
      */
     public function create(Request $request, Group $group)
     {

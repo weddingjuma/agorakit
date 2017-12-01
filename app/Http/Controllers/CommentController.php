@@ -8,7 +8,6 @@ use App\Group;
 use Gate;
 use Illuminate\Http\Request;
 
-
 class CommentController extends Controller
 {
     public function __construct()
@@ -19,10 +18,10 @@ class CommentController extends Controller
     }
 
     /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         //
@@ -41,20 +40,19 @@ class CommentController extends Controller
         }
 
         $discussion->comments()->save($comment);
-        ++$discussion->total_comments;
+        $discussion->total_comments++;
         $discussion->save();
-
 
         return redirect()->route('groups.discussions.show', [$discussion->group, $discussion]);
     }
 
     /**
-    * Show the form for editing the specified resource.
-    *
-    * @param int $id
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function edit(Request $request, Group $group, Discussion $discussion, Comment $comment)
     {
         if (Gate::allows('update', $comment)) {
@@ -69,13 +67,13 @@ class CommentController extends Controller
     }
 
     /**
-    * Update the specified resource in storage.
-    *
-    * @param \Illuminate\Http\Request $request
-    * @param int                      $id
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, Group $group, Discussion $discussion, Comment $comment)
     {
         if (Gate::allows('update', $comment)) {
@@ -96,12 +94,12 @@ class CommentController extends Controller
     }
 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param int $id
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function destroyConfirm(Request $request, Group $group, Discussion $discussion, Comment $comment)
     {
         if (Gate::allows('delete', $comment)) {
@@ -116,12 +114,12 @@ class CommentController extends Controller
     }
 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param int $id
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Request $request, Group $group, Discussion $discussion, Comment $comment)
     {
         if (Gate::allows('delete', $comment)) {
@@ -135,8 +133,8 @@ class CommentController extends Controller
     }
 
     /**
-    * Show the revision history of the comment.
-    */
+     * Show the revision history of the comment.
+     */
     public function history(Request $request, Group $group, Discussion $discussion, Comment $comment)
     {
         return view('comments.history')

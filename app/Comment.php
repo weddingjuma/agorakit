@@ -2,12 +2,12 @@
 
 namespace App;
 
+use App\Traits\LogsActivity;
+use App\Traits\MentionUsers;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use Watson\Validating\ValidatingTrait;
-use App\Traits\LogsActivity;
-use App\Traits\MentionUsers;
 
 class Comment extends Model
 {

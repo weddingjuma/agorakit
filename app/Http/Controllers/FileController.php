@@ -23,10 +23,10 @@ class FileController extends Controller
     }
 
     /**
-    * Display a listing of the resource.
-    *
-    * @return Response
-    */
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
     public function index(Group $group)
     {
         $files = $group->files()
@@ -43,15 +43,13 @@ class FileController extends Controller
         ->with('tab', 'files');
     }
 
-
-
     /**
-    * Display the specified resource.
-    *
-    * @param int $id
-    *
-    * @return Response
-    */
+     * Display the specified resource.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     public function show(Group $group, File $file)
     {
         return view('files.show')
@@ -60,12 +58,11 @@ class FileController extends Controller
         ->with('tab', 'files');
     }
 
-
     /**
-    * Show the form for creating a new resource.
-    *
-    * @return Response
-    */
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
     public function create(Request $request, Group $group)
     {
         return view('files.create')
@@ -83,10 +80,10 @@ class FileController extends Controller
     }
 
     /**
-    * Store a new file.
-    *
-    * @return Response
-    */
+     * Store a new file.
+     *
+     * @return Response
+     */
     public function store(Request $request, Group $group)
     {
         try {
@@ -101,8 +98,7 @@ class FileController extends Controller
                     $file->group()->associate($group);
                     $file->user()->associate(Auth::user());
 
-                    if ($request->get('tags'))
-                    {
+                    if ($request->get('tags')) {
                         $file->tag($request->get('tags'));
                     }
 
@@ -129,7 +125,7 @@ class FileController extends Controller
                     $file->name = $uploaded_file->getClientOriginalName();
                     $file->original_filename = $uploaded_file->getClientOriginalName();
                     $file->mime = $uploaded_file->getClientMimeType();
-                    $file->filesize =  $uploaded_file->getClientSize();
+                    $file->filesize = $uploaded_file->getClientSize();
 
                     // save it again
                     $file->save();
@@ -152,12 +148,12 @@ class FileController extends Controller
     }
 
     /**
-    * Show the form for editing the specified resource.
-    *
-    * @param int $id
-    *
-    * @return Response
-    */
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     public function edit(Group $group, File $file)
     {
         return view('files.edit')
@@ -169,16 +165,15 @@ class FileController extends Controller
     }
 
     /**
-    * Update the specified resource in storage.
-    *
-    * @param int $id
-    *
-    * @return Response
-    */
+     * Update the specified resource in storage.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     public function update(Request $request, Group $group, File $file)
     {
-        if ($request->get('tags'))
-        {
+        if ($request->get('tags')) {
             $file->retag($request->get('tags'));
         }
 
@@ -206,12 +201,12 @@ class FileController extends Controller
     }
 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param int $id
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Request $request, Group $group, File $file)
     {
         if (Gate::allows('delete', $file)) {
@@ -225,10 +220,10 @@ class FileController extends Controller
     }
 
     /**
-    * Store the folder in the file DB.
-    *
-    * @return Response
-    */
+     * Store the folder in the file DB.
+     *
+     * @return Response
+     */
     public function storeLink(Request $request, Group $group)
     {
         $validator = Validator::make($request->all(), [
@@ -255,8 +250,7 @@ class FileController extends Controller
 
         if ($file->save()) {
             // handle tags
-            if ($request->get('tags'))
-            {
+            if ($request->get('tags')) {
                 $file->tag($request->get('tags'));
             }
 

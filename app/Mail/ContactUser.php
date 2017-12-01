@@ -2,11 +2,10 @@
 
 namespace App\Mail;
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use \App\User;
 
 class ContactUser extends Mailable
 {
@@ -18,10 +17,10 @@ class ContactUser extends Mailable
     public $from_user;
 
     /**
-    * Create a new message instance.
-    *
-    * @return void
-    */
+     * Create a new message instance.
+     *
+     * @return void
+     */
     public function __construct(User $from_user, User $to_user, $body)
     {
         $this->body = $body;
@@ -30,10 +29,10 @@ class ContactUser extends Mailable
     }
 
     /**
-    * Build the message.
-    *
-    * @return $this
-    */
+     * Build the message.
+     *
+     * @return $this
+     */
     public function build()
     {
         return $this->markdown('emails.contact')

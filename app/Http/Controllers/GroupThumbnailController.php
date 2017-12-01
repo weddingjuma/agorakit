@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Group;
-use Auth;
 use File;
-use Gate;
-use Illuminate\Http\Request;
 use Image;
-use Storage;
 
 class GroupThumbnailController extends Controller
 {

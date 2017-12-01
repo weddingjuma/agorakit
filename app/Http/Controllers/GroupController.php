@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Group;
 use Auth;
 use Carbon\Carbon;
-use File;
 use Gate;
 use Illuminate\Http\Request;
 use Image;
@@ -20,12 +19,12 @@ class GroupController extends Controller
     }
 
     /**
-    * Display the specified resource.
-    *
-    * @param int $id
-    *
-    * @return Response
-    */
+     * Display the specified resource.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     public function show(Group $group)
     {
         $discussions = false;
@@ -34,8 +33,7 @@ class GroupController extends Controller
         $activities = false;
 
         // User is logged
-        if (Auth::check())
-        {
+        if (Auth::check()) {
             if (Gate::allows('viewDiscussions', $group)) {
                 $discussions = $group->discussions()
                 ->has('user')
@@ -56,11 +54,8 @@ class GroupController extends Controller
             if (Gate::allows('viewActivities', $group)) {
                 $activities = $group->activities()->limit(10)->get();
             }
-        }
-        else // anonymous user
-        {
-            if ($group->isPublic())
-            {
+        } else { // anonymous user
+            if ($group->isPublic()) {
                 $discussions = $group->discussions()
                 ->has('user')
                 ->with('user', 'group')
@@ -84,10 +79,10 @@ class GroupController extends Controller
     }
 
     /**
-    * Show the form for creating a new resource.
-    *
-    * @return Response
-    */
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
     public function create()
     {
         Gate::authorize('create', \App\Group::class);
@@ -97,10 +92,10 @@ class GroupController extends Controller
     }
 
     /**
-    * Store a newly created resource in storage.
-    *
-    * @return Response
-    */
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
     public function store(Request $request)
     {
         Gate::authorize('create', \App\Group::class);
@@ -130,8 +125,7 @@ class GroupController extends Controller
 
         $group->user()->associate(Auth::user());
 
-        if ($request->get('tags'))
-        {
+        if ($request->get('tags')) {
             $group->tag($request->get('tags'));
         }
 
@@ -149,10 +143,8 @@ class GroupController extends Controller
         $membership->save();
 
         // notify admins (if they want it)
-        if (\App\Setting::get('notify_admins_on_group_create'))
-        {
-            foreach (\App\User::admins()->get() as $admin)
-            {
+        if (\App\Setting::get('notify_admins_on_group_create')) {
+            foreach (\App\User::admins()->get() as $admin) {
                 $admin->notify(new \App\Notifications\GroupCreated($group));
             }
         }
@@ -163,12 +155,12 @@ class GroupController extends Controller
     }
 
     /**
-    * Show the form for editing the specified resource.
-    *
-    * @param int $id
-    *
-    * @return Response
-    */
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     public function edit(Request $request, Group $group)
     {
         return view('groups.edit')
@@ -179,12 +171,12 @@ class GroupController extends Controller
     }
 
     /**
-    * Update the specified resource in storage.
-    *
-    * @param int $id
-    *
-    * @return Response
-    */
+     * Update the specified resource in storage.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     public function update(Request $request, Group $group)
     {
         $group->name = $request->input('name');
@@ -206,8 +198,7 @@ class GroupController extends Controller
 
         $group->user()->associate(Auth::user());
 
-        if ($request->get('tags'))
-        {
+        if ($request->get('tags')) {
             $group->retag($request->get('tags'));
         }
 
@@ -245,12 +236,12 @@ class GroupController extends Controller
     }
 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param int $id
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Request $request, Group $group)
     {
         if (Gate::allows('delete', $group)) {
@@ -264,8 +255,8 @@ class GroupController extends Controller
     }
 
     /**
-    * Show the revision history of the group.
-    */
+     * Show the revision history of the group.
+     */
     public function history(Group $group)
     {
         return view('groups.history')

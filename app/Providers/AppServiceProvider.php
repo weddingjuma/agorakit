@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Auth;
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 

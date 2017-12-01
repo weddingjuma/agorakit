@@ -2,12 +2,12 @@
 
 namespace App;
 
+use App\Traits\LogsActivity;
 use Cviebrock\EloquentTaggable\Taggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use Watson\Validating\ValidatingTrait;
-use App\Traits\LogsActivity;
 
 class File extends Model
 {
@@ -71,12 +71,10 @@ class File extends Model
 
     public function isImage()
     {
-        if (in_array($this->mime, ['image/jpeg', 'image/png', 'image/gif']))
-        {
+        if (in_array($this->mime, ['image/jpeg', 'image/png', 'image/gif'])) {
             return true;
         }
-         return false;
+
+        return false;
     }
-
-
 }

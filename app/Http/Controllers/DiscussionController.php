@@ -19,10 +19,10 @@ class DiscussionController extends Controller
     }
 
     /**
-    * Display a listing of the resource.
-    *
-    * @return Response
-    */
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
     public function index(Request $request, Group $group = null)
     {
         if (\Auth::check()) {
@@ -38,10 +38,10 @@ class DiscussionController extends Controller
     }
 
     /**
-    * Show the form for creating a new resource.
-    *
-    * @return Response
-    */
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
     public function create(Request $request, Group $group)
     {
         return view('discussions.create')
@@ -51,10 +51,10 @@ class DiscussionController extends Controller
     }
 
     /**
-    * Store a newly created resource in storage.
-    *
-    * @return Response
-    */
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
     public function store(Request $request, Group $group)
     {
         // if no group is in the route, it means user choose the group using the dropdown
@@ -63,7 +63,6 @@ class DiscussionController extends Controller
         }
 
         $this->authorize('creatediscussion', $group);
-
 
         $discussion = new Discussion();
         $discussion->name = $request->input('name');
@@ -89,12 +88,12 @@ class DiscussionController extends Controller
     }
 
     /**
-    * Display the specified resource.
-    *
-    * @param int $id
-    *
-    * @return Response
-    */
+     * Display the specified resource.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     public function show(Group $group, Discussion $discussion)
     {
         // if user is logged in, we update the read count for this discussion.
@@ -118,12 +117,12 @@ class DiscussionController extends Controller
     }
 
     /**
-    * Show the form for editing the specified resource.
-    *
-    * @param int $id
-    *
-    * @return Response
-    */
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     public function edit(Request $request, Group $group, Discussion $discussion)
     {
         return view('discussions.edit')
@@ -135,12 +134,12 @@ class DiscussionController extends Controller
     }
 
     /**
-    * Update the specified resource in storage.
-    *
-    * @param int $id
-    *
-    * @return Response
-    */
+     * Update the specified resource in storage.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     public function update(Request $request, Group $group, Discussion $discussion)
     {
         $discussion->name = $request->input('name');
@@ -170,12 +169,12 @@ class DiscussionController extends Controller
     }
 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param int $id
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Request $request, Group $group, Discussion $discussion)
     {
         if (Gate::allows('delete', $discussion)) {
@@ -189,8 +188,8 @@ class DiscussionController extends Controller
     }
 
     /**
-    * Show the revision history of the discussion.
-    */
+     * Show the revision history of the discussion.
+     */
     public function history(Group $group, Discussion $discussion)
     {
         return view('discussions.history')

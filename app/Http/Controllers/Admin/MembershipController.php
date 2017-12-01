@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Group;
+use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 /**
  * Admin features to act on membership and to make other users admin of a group.

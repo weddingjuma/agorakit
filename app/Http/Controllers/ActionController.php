@@ -102,8 +102,7 @@ class ActionController extends Controller
     public function store(Request $request, Group $group)
     {
         // if no group is in the route, it means user choose the group using the dropdown
-        if (!$group->exists)
-        {
+        if (!$group->exists) {
             $group = \App\Group::findOrFail($request->get('group'));
         }
 
@@ -138,6 +137,7 @@ class ActionController extends Controller
         } else {
             $action->save();
             flash(trans('messages.ressource_created_successfully'))->success();
+
             return redirect()->route('groups.actions.index', $group);
         }
     }

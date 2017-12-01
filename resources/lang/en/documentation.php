@@ -1,11 +1,10 @@
 <?php
 
-return array (
+return [
   //==================================== Translations ====================================//
   'intro' => 'Intro',
   //================================== Obsolete strings ==================================//
-  'LLH:obsolete' => 
-  array (
+  'LLH:obsolete' => [
     'my_groups' => 'My groups',
-  ),
-);
+  ],
+];

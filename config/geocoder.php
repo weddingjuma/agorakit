@@ -10,7 +10,6 @@
  */
 use Geocoder\Provider\BingMaps;
 use Geocoder\Provider\Chain;
-use Geocoder\Provider\FreeGeoIp;
 use Geocoder\Provider\GoogleMaps;
 use Http\Client\Curl\Client;
 

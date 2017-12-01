@@ -14,6 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $users = \App\User::orderBy('updated_at', 'desc')->get();
+
         return view('admin.user.index')->with('users', $users);
     }
 }

@@ -2,13 +2,13 @@
 
 namespace App;
 
+use App\Traits\LogsActivity;
 use Cviebrock\EloquentTaggable\Taggable;
 use Iatstuti\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use Watson\Validating\ValidatingTrait;
-use App\Traits\LogsActivity;
 
 class Discussion extends Model
 {

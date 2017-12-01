@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Group;
+use App\Mail\ContactUser;
 use App\Mailers\AppMailer;
 use App\User;
 use Auth;
@@ -14,8 +15,6 @@ use Mail;
 use Redirect;
 use Storage;
 
-use App\Mail\ContactUser;
-
 class UserController extends Controller
 {
     public function __construct()
@@ -26,10 +25,10 @@ class UserController extends Controller
     }
 
     /**
-    * Display a listing of the resource.
-    *
-    * @return Response
-    */
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
     public function index(Group $group)
     {
         $users = $group->users()->with('memberships')->orderBy('updated_at', 'desc')->paginate(25);
@@ -43,8 +42,8 @@ class UserController extends Controller
     }
 
     /**
-    * Show contact form for the user.
-    */
+     * Show contact form for the user.
+     */
     public function contactForm(User $user)
     {
         return view('users.contact')
@@ -53,40 +52,38 @@ class UserController extends Controller
     }
 
     /**
-    * Mails the user.
-    */
+     * Mails the user.
+     */
     public function contact(User $user, Request $request)
     {
         $from_user = Auth::user();
         $to_user = $user;
 
-        if ($to_user->verified == 1)
-        {
-            if ($request->has('body'))
-            {
+        if ($to_user->verified == 1) {
+            if ($request->has('body')) {
                 $body = $request->input('body');
                 Mail::to($to_user)->send(new ContactUser($from_user, $to_user, $body));
 
                 flash(trans('messages.message_sent'))->success();
+
                 return redirect()->route('users.contactform', $to_user);
             }
 
             return redirect()->back();
-        }
-        else
-        {
+        } else {
             flash(trans('messages.email_not_verified'))->error();
+
             return redirect()->back();
         }
     }
 
     /**
-    * Display the specified resource.
-    *
-    * @param int $id
-    *
-    * @return Response
-    */
+     * Display the specified resource.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     public function show(User $user)
     {
         return view('users.show')
@@ -96,12 +93,12 @@ class UserController extends Controller
     }
 
     /**
-    * Show the form for editing the specified resource.
-    *
-    * @param int $id
-    *
-    * @return Response
-    */
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     public function edit(User $user)
     {
         if (Gate::allows('update', $user)) {
@@ -113,12 +110,12 @@ class UserController extends Controller
     }
 
     /**
-    * Update the specified resource in storage.
-    *
-    * @param int $id
-    *
-    * @return Response
-    */
+     * Update the specified resource in storage.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     public function update(Request $request, User $user)
     {
         if (Gate::allows('update', $user)) {
@@ -183,13 +180,13 @@ class UserController extends Controller
     }
 
     /**
-    * Send verification token to a user, again, for example if it's stuck in spam or wathever else event.
-    *
-    * @param Request $request
-    * @param int     $id      User id
-    *
-    * @return Flash message and returns to homepage
-    */
+     * Send verification token to a user, again, for example if it's stuck in spam or wathever else event.
+     *
+     * @param Request $request
+     * @param int     $id      User id
+     *
+     * @return Flash message and returns to homepage
+     */
     public function sendVerificationAgain(Request $request, User $user)
     {
         if ($user->verified == 0) {
@@ -202,12 +199,12 @@ class UserController extends Controller
     }
 
     /**
-    * Remove the specified resource from storage.
-    *
-    * @param int $id
-    *
-    * @return Response
-    */
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return Response
+     */
     public function destroy(User $user)
     {
     }

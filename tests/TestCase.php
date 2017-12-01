@@ -7,11 +7,12 @@ use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 abstract class TestCase extends BaseTestCase
 {
     public $baseUrl = 'http://localhost';
+
     /**
-    * Creates the application.
-    *
-    * @return \Illuminate\Foundation\Application
-    */
+     * Creates the application.
+     *
+     * @return \Illuminate\Foundation\Application
+     */
     public function createApplication()
     {
         // putenv('DB_DEFAULT=sqlite_testing'); // TODO
@@ -21,5 +22,4 @@ abstract class TestCase extends BaseTestCase
 
         return $app;
     }
-
 }

@@ -14,10 +14,10 @@ class DashboardController extends Controller
     }
 
     /**
-    * Main HOMEPAGE.
-    *
-    * @return Response
-    */
+     * Main HOMEPAGE.
+     *
+     * @return Response
+     */
     public function index(Request $request)
     {
         if (Auth::check()) {
@@ -75,8 +75,8 @@ class DashboardController extends Controller
     }
 
     /**
-    * Show all the files independant of groups.
-    */
+     * Show all the files independant of groups.
+     */
     public function files()
     {
         if (Auth::check()) {
@@ -96,15 +96,14 @@ class DashboardController extends Controller
             ->orderBy('updated_at', 'desc')->paginate(25);
         }
 
-
         return view('dashboard.files')
         ->with('tab', 'files')
         ->with('files', $files);
     }
 
     /**
-    * Generates a list of unread discussions.
-    */
+     * Generates a list of unread discussions.
+     */
     public function discussions(Request $request)
     {
         if (Auth::check()) {
@@ -153,7 +152,6 @@ class DashboardController extends Controller
         //->whereIn('group_id', $groups)
         //->get();
         //->where('start', '>=', Carbon::now())
-
 
         //return view('dashboard.agenda')
         //->with('tab', 'actions')
@@ -236,8 +234,8 @@ class DashboardController extends Controller
     }
 
     /**
-    * Renders a map of all users (curently).
-    */
+     * Renders a map of all users (curently).
+     */
     public function map()
     {
         $users = \App\User::where('latitude', '<>', 0)->get();
@@ -251,12 +249,10 @@ class DashboardController extends Controller
             $allowed_groups = \App\Group::publicgroups()->get()->pluck('id');
         }
 
-
         $actions = \App\Action::where('start', '>=', Carbon::now())
         ->where('latitude', '<>', 0)
         ->whereIn('group_id', $allowed_groups)
         ->get();
-
 
         $groups = \App\Group::where('latitude', '<>', 0)->get();
 

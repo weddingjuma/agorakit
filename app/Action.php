@@ -2,12 +2,12 @@
 
 namespace App;
 
+use App\Traits\LogsActivity;
 use Geocoder\Laravel\Facades\Geocoder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Venturecraft\Revisionable\RevisionableTrait;
 use Watson\Validating\ValidatingTrait;
-use App\Traits\LogsActivity;
 
 class Action extends Model
 {

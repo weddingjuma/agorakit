@@ -2,9 +2,9 @@
 
 namespace App;
 
+use Config;
 use Illuminate\Database\Eloquent\Model;
 use Venturecraft\Revisionable\RevisionableTrait;
-use Config;
 
 class Setting extends Model
 {
@@ -32,9 +32,8 @@ class Setting extends Model
         }
 
         // second priority, default setting stored in app/config/agorakit.php
-        if (Config::get('agorakit.' . $key))
-        {
-            return Config::get('agorakit.' . $key);
+        if (Config::get('agorakit.'.$key)) {
+            return Config::get('agorakit.'.$key);
         }
 
         // lastly our $default

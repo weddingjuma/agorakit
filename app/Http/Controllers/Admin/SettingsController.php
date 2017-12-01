@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Auth;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class SettingsController extends Controller
 {
@@ -14,18 +14,18 @@ class SettingsController extends Controller
     }
 
     /**
-    * Display a settings edition screen. Currently only the homepage intro text, but this will change soon :-)
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Display a settings edition screen. Currently only the homepage intro text, but this will change soon :-).
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return view('admin.settings.index');
     }
 
     /**
-    * Update settings from the edit form.
-    */
+     * Update settings from the edit form.
+     */
     public function update(Request $request)
     {
         if (Auth::user()->isAdmin()) {
@@ -36,9 +36,11 @@ class SettingsController extends Controller
             \App\Setting::set('notify_admins_on_group_create', $request->has('notify_admins_on_group_create') ? 1 : 0);
 
             flash('Settings saved')->success();
+
             return view('admin.settings.index');
         } else {
             flash(trans('messages.not_allowed'))->error();
+
             return redirect()->action('DashboardController@index');
         }
     }

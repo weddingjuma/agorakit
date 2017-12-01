@@ -15,7 +15,6 @@ use DB;
  */
 class QueryHelper
 {
-
     /**
      * Returns the number of unread discussions the current user has. Is run on every page !
      */
